@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <p class="text-uppercase text-muted small fw-semibold mb-2">Recent Checks</p>
+        <h1 class="fw-bold mb-0">Prediction History</h1>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('index') }}">New Check</a>
+</div>
+
+{% if rows %}
+    <div class="table-responsive history-table">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>News</th>
+                    <th>Prediction</th>
+                    <th>Confidence</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td class="text-truncate history-text">{{ row["news_text"] }}</td>
+                        <td>
+                            <span class="badge {{ 'text-bg-danger' if row['prediction'] == 'Fake' else 'text-bg-success' }}">
+                                {{ row["prediction"] }}
+                            </span>
+                        </td>
+                        <td>{{ row["confidence"] }}%</td>
+                        <td>{{ row["created_at"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="empty-state">
+        <h2 class="h5">No predictions yet</h2>
+        <p class="text-muted mb-0">Checked news articles will appear here.</p>
+    </div>
+{% endif %}
+{% endblock %}

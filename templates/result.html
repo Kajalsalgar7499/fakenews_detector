@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="result-panel">
+    <p class="text-uppercase text-muted small fw-semibold mb-2">Prediction Result</p>
+    <h1 class="fw-bold result-title {{ 'fake' if prediction == 'Fake' else 'real' }}">{{ prediction }}</h1>
+    <p class="fs-5 mb-4">Confidence score: <strong>{{ confidence }}%</strong></p>
+
+    <div class="progress mb-4" role="progressbar" aria-label="Confidence score" aria-valuenow="{{ confidence }}" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar {{ 'bg-danger' if prediction == 'Fake' else 'bg-success' }}" style="width: {{ confidence }}%"></div>
+    </div>
+
+    <div class="news-preview">
+        <h2 class="h5">Submitted news</h2>
+        <p>{{ news_text }}</p>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+        <a class="btn btn-primary" href="{{ url_for('index') }}">Check Another</a>
+        <a class="btn btn-outline-dark" href="{{ url_for('history') }}">View History</a>
+    </div>
+</section>
+{% endblock %}

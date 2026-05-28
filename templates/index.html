@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="checker-layout">
+    <div>
+        <p class="text-uppercase text-muted small fw-semibold mb-2">Machine Learning Project</p>
+        <h1 class="display-5 fw-bold mb-3">Check whether a news article looks fake or real.</h1>
+        <p class="lead text-muted">Paste a news paragraph below. The system preprocesses the text, applies TF-IDF, and predicts the result with a confidence score.</p>
+    </div>
+
+    <form class="checker-panel" action="{{ url_for('predict') }}" method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <label for="news_text" class="form-label fw-semibold">News content</label>
+        <textarea id="news_text" name="news_text" class="form-control" rows="10" placeholder="Paste news article text here..." required></textarea>
+        <div class="d-flex align-items-center justify-content-between mt-3">
+            <span class="text-muted small" id="word_count">0 words</span>
+            <button type="submit" class="btn btn-primary px-4">Detect News</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
